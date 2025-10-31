@@ -1,18 +1,22 @@
 services:
-  mlops-api:
-    image: 
-    container_name:
-    ports:
-      - 
+  mlops-api-sinerror:
+    image: elenaardura/mlops-api-sinerror
+    container_name: mlops-api-sinerror
+    ports: 
+    # Primero se pone el puerto de la maquina local y luego el del contenedor
+      - "6000:5000"
     restart: always
 
-  mlops-web:
-    image:
-    container_name:
+  mlops-web-sinerror:
+    image: elenaardura/mlops-web-sinerror
+    container_name: mlops-web-sinerror
     ports:
-      - 
+    # Para ver la web en el navegador local hay que usar el puerto 8080
+      - "8080:8501"
     environment:
-      - API_URL=
+    # Este puerto es el del contenedor ya que se conectan por una red interna entre los contenedores
+    # En el caso de querer hacer un curl a la api desde la maquina local, habria que usar el puerto 6000
+      - API_URL=http://mlops-api-sinerror:5000/predict
     depends_on:
-      - mlops-api
+      - mlops-api-sinerror
     restart: always
