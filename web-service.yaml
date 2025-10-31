@@ -7,6 +7,6 @@ spec:
     app: mlops-web-sinerror
   ports:
     - protocol: TCP
-      port: 8501
+      port: 80
       targetPort: 8501
-  type: ClusterIP
+  type: LoadBalancer
